@@ -1,0 +1,34 @@
+<div class="row" *ngIf="allPost$ | async as data; else loading">
+  <ng-container *ngFor="let d of data; index as i">
+    <div class="card col-6">
+      <img [src]="d.image | image" class="card-img-top w-100" alt=""/>
+      <div class="card-body">
+        <h5 class="card-title">{{d.desc}}</h5>
+        <p class="card-text">{{d.createdAt | date}}</p>
+        <p class="card-text">Created By {{d.createdAt | date}}</p>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="data.loading">
+    <ng-template [ngTemplateOutlet]="loading"></ng-template>
+  </ng-container>
+  <ng-container *ngIf="data.error">
+    <ng-template [ngTemplateOutlet]="error" [ngTemplateOutletContext]="{ $implicit: data}"></ng-template>
+  </ng-container>
+</div>
+
+
+<ng-template #loading>
+  <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+<!--    <mat-spinner diameter="40"></mat-spinner>-->
+    Loading...
+  </div>
+</ng-template>
+<ng-template #error let-d>
+  <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-center">
+    <i class="flaticon flaticon-warning" style="font-size: 2em;"></i>
+    <div>
+      {{d.error}}
+    </div>
+  </div>
+</ng-template>

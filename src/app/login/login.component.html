@@ -1,0 +1,13 @@
+<h1>Login</h1>
+<form (ngSubmit)="onSubmit()">
+  <label for="username">Username</label>
+  <input id="username" type="text" class="form-control" name="username" [(ngModel)]="username"/>
+  <br>
+  <label for="password">Password</label>
+  <input id="password" type="password" class="form-control" name="password" [(ngModel)]="password"/>
+  <br>
+  <button class="btn btn-primary mb-4" type="submit">Login</button>
+  <button class="btn btn-link mb-4" type="button" [routerLink]="['/register']">Register</button>
+  <br>
+  <ngb-alert type="danger" (closed)="close()" *ngIf="errorMessage">{{ errorMessage }}</ngb-alert>
+</form>

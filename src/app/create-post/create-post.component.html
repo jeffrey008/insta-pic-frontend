@@ -1,0 +1,24 @@
+<h1>Create Post</h1>
+<form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+
+  <label for="description">Description</label>
+  <input id="description" type="text" class="form-control" name="description" [ngClass]="{'is-invalid': f.submitted && descriptionModel.invalid }" [(ngModel)]="description" #descriptionModel="ngModel" required/>
+  <div *ngIf="f.submitted && descriptionModel.invalid" class="invalid-feedback">
+    <div *ngIf="descriptionModel.errors?.required">
+      Description is required.
+    </div>
+  </div>
+  <br>
+  <label for="image">Image</label>
+  <input id="image" type="file" class="form-control" name="image" [(ngModel)]="image"  (change)="onSelectFile($event)" accept="image/png, image/jpeg" required/>
+  <small class="text-muted">Image size must be less than 2MB.</small>
+  <div *ngIf="f.submitted && descriptionModel.invalid" class="invalid-feedback">
+    <div *ngIf="descriptionModel.errors?.required">
+      Image is required.
+    </div>
+  </div>
+  <br>
+  <button class="btn btn-primary mb-4" type="submit">Create</button>
+  <br>
+  <ngb-alert type="success" *ngIf="message">{{ message }}</ngb-alert>
+</form>

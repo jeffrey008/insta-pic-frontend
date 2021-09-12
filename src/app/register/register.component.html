@@ -1,0 +1,31 @@
+<h1>Register</h1>
+<form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+  <label for="username">Username</label>
+  <input id="username" type="text" class="form-control" name="username" [ngClass]="{'is-invalid': f.submitted && usernameModel.invalid }" [(ngModel)]="username" #usernameModel="ngModel" required/>
+  <div *ngIf="f.submitted && usernameModel.invalid" class="invalid-feedback">
+    <div *ngIf="usernameModel.errors?.required">
+      Username is required.
+    </div>
+  </div>
+  <br>
+  <label for="password">Password</label>
+  <input id="password" type="password" class="form-control" name="password" [ngClass]="{'is-invalid': f.submitted && passwordModel.invalid }" [(ngModel)]="password" #passwordModel="ngModel" minlength="8" maxlength="20" required/>
+  <small class="text-muted">Password must be 8-20 charters.</small>
+  <div *ngIf="f.submitted && passwordModel.invalid" class="invalid-feedback">
+    <div *ngIf="passwordModel.errors?.required || passwordModel.errors?.minlength || passwordModel.errors?.maxlength">
+      Password must be 8-20 charters.
+    </div>
+  </div>
+  <br>
+  <label for="confirm-password">Confirm Password</label>
+  <input id="confirm-password" type="password" class="form-control" name="confirmPassword" [ngClass]="{'is-invalid': f.submitted && confirmPasswordModel.invalid }" #confirmPasswordModel="ngModel" [(ngModel)]="confirmPassword" pattern="{{ passwordModel.value }}" required/>
+  <div *ngIf="f.submitted && confirmPasswordModel.invalid" class="invalid-feedback">
+    <div *ngIf="confirmPasswordModel.errors?.required || confirmPasswordModel.errors?.pattern">Passwords must match.</div>
+  </div>
+
+  <br>
+  <button class="btn btn-primary mb-4" type="submit">Register</button>
+  <button class="btn btn-link mb-4" type="button" [routerLink]="['/login']">Back</button>
+  <br>
+  <ngb-alert type="danger" (closed)="close()" *ngIf="errorMessage">{{ errorMessage }}</ngb-alert>
+</form>
