@@ -1,7 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Buffer } from "buffer";
-// @ts-ignore
-global.Buffer = Buffer;
 
 @Pipe({
   name: 'image'
