@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendAPI: 'http://localhost:3000',
+  backendAPI: 'https://insta-pic-backend.azurewebsites.net',
 };
