@@ -1,11 +1,30 @@
 <div class="row" *ngIf="allPost$ | async as data; else loading">
+  <div class="col-12 mb-2">
+    <form class="form-inline" (submit)="onSubmit()">
+      <label class="mr-2">Filter:</label>
+      <label class="mr-2">Order By</label>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="filter.orderBy" value="latest">
+        <label class="form-check-label" for="inlineRadio1">Latest</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [(ngModel)]="filter.orderBy" value="oldest">
+        <label class="form-check-label" for="inlineRadio2">Oldest</label>
+      </div>
+
+      <input id="username" type="text" class="form-control mr-2" name="description" [(ngModel)]="filter.username" placeholder="Username"/>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
   <ng-container *ngFor="let d of data; index as i">
     <div class="card col-6">
       <img [src]="d.image | image" class="card-img-top w-100" alt=""/>
       <div class="card-body">
         <h5 class="card-title">{{d.desc}}</h5>
         <p class="card-text">{{d.createdAt | date}}</p>
-        <p class="card-text">Created By {{d.createdAt | date}}</p>
+        <p class="card-text">Created By {{d.user?.username}}</p>
       </div>
     </div>
   </ng-container>
@@ -20,7 +39,7 @@
 
 <ng-template #loading>
   <div class="d-flex flex-grow-1 justify-content-center align-items-center">
-<!--    <mat-spinner diameter="40"></mat-spinner>-->
+    <!--    <mat-spinner diameter="40"></mat-spinner>-->
     Loading...
   </div>
 </ng-template>

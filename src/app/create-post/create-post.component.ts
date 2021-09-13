@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PostService} from "../post.service";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-create-post',
@@ -11,10 +12,14 @@ export class CreatePostComponent implements OnInit {
   image: any;
   url: any;
   message: string = '';
+  currentUser: any;
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.currentUser$.subscribe((user: any) => {
+      this.currentUser = user;
+    })
   }
 
   onSelectFile(event: any) { // called each time file input changes
@@ -34,7 +39,7 @@ export class CreatePostComponent implements OnInit {
     const formData = new FormData();
     formData.append('image', this.url)
     formData.append('desc', this.description);
-    // formData.append('userId', restObj[key]);
+    formData.append('user', this.currentUser._id);
 
     this.postService.createPosts(formData).subscribe((value => {
       this.message = 'Post created.'
