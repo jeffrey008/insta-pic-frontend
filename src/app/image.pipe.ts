@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Buffer } from "Buffer";
+import { Buffer } from "buffer";
 // @ts-ignore
 global.Buffer = Buffer;
 
